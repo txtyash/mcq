@@ -1,0 +1,40 @@
+<div class="container mt-4" *ngIf="test">
+  <h2>Test Summary</h2>
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <h4>Total Score</h4>
+      <p>{{ totalScore }} / {{ totalQuestions }}</p>
+    </div>
+    <div class="col-md-4">
+      <h4>Questions Attempted</h4>
+      <p>{{ questionsAttempted }} / {{ totalQuestions }}</p>
+    </div>
+    <div class="col-md-4">
+      <h4>Avg. Time per Question</h4>
+      <p>{{ avgTimePerQuestion }} seconds</p>
+    </div>
+  </div>
+
+  <div *ngFor="let section of test.sections" class="mb-4">
+    <h3>{{ section.name }}</h3>
+    <div *ngFor="let question of section.questions" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ question.text }}</h5>
+        <div *ngFor="let option of question.options" class="form-check">
+          <input class="form-check-input" type="radio" [id]="option.id" [value]="option.id"
+            [checked]="isOptionSelected(question, option)" disabled>
+          <label class="form-check-label" [for]="option.id" [ngClass]="{
+                'text-success font-weight-bold': isCorrectAnswer(question, option),
+                'text-danger': isIncorrectAnswer(question, option)
+              }">
+            {{ option.text }}
+            <span *ngIf="isCorrectAnswer(question, option)"> ✓</span>
+            <span *ngIf="isIncorrectAnswer(question, option)"> ✗</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary mt-3" (click)="goToHome()">Go to Home</button>
+</div>

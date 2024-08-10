@@ -1,0 +1,22 @@
+<nav class="px-3 navbar navbar-expand navbar-dark bg-dark sticky-top justify-content-between">
+  <div class="d-flex align-items-center">
+    <a class="navbar-brand" routerLink="/">
+      <img src="/images/js-logo.svg" alt="JavaScript Logo" class="js-logo" />JS Mastery
+    </a>
+  </div>
+
+  <!-- Links -->
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      @if(isAuthneticated()) {
+      <button class="nav-link" routerLink="" (click)="logout()" routerLinkActive="active">
+        Logout
+      </button>
+      } @else {
+      <a class="nav-link" routerLink="/login" routerLinkActive="active">
+        Login
+      </a>
+      }
+    </li>
+  </ul>
+</nav>

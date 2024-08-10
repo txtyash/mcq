@@ -1,0 +1,82 @@
+<div class="container mt-4" *ngIf="test">
+  <h2>MCQ Test</h2>
+  <div class="row">
+    <div class="col-md-8">
+      <div *ngIf="currentQuestion">
+        <h3>{{ currentSection?.name }}</h3>
+        <fieldset>
+          <legend>{{ currentQuestion.text }}</legend>
+          <ng-container *ngIf="currentQuestion.type === 'single'; else multiSelect">
+            <div *ngFor="let option of currentQuestion.options" class="form-check">
+              <input class="form-check-input" type="radio" [id]="'option_' + currentQuestion.id + '_' + option.id"
+                [value]="option.id" [(ngModel)]="currentQuestion.userAnswers[0]" (change)="onAnswer()"
+                [name]="'question_' + currentQuestion.id">
+              <label class="form-check-label" [for]="'option_' + currentQuestion.id + '_' + option.id">
+                {{ option.text }}
+              </label>
+            </div>
+          </ng-container>
+          <ng-template #multiSelect>
+            <div *ngFor="let option of currentQuestion.options" class="form-check">
+              <input class="form-check-input" type="checkbox" [id]="'option_' + currentQuestion.id + '_' + option.id"
+                [checked]="option.checked" (change)="onMultiAnswer(option.id)"
+                [name]="'question_' + currentQuestion.id">
+              <label class="form-check-label" [for]="'option_' + currentQuestion.id + '_' + option.id">
+                {{ option.text }}
+              </label>
+            </div>
+          </ng-template>
+        </fieldset>
+
+        <div class="mt-3">
+          <button class="btn btn-secondary me-2" (click)="previousQuestion()" [disabled]="!hasPrevious"
+            aria-label="Go to previous question" title="Go to previous question">
+            Previous
+          </button>
+          <button class="btn btn-secondary" (click)="nextQuestion()" [disabled]="!hasNext"
+            aria-label="Go to next question" title="Go to next question">
+            Next
+          </button>
+        </div>
+        <button class="btn btn-warning mt-3" (click)="markForReview()" aria-label="Mark question for review"
+          title="Mark question for review">
+          Mark for Review
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Questions</h4>
+      <div *ngFor="let section of test.sections; let sectionIndex = index">
+        <h5>
+          {{ section.name }}
+          <small>({{ getSectionCompletionPercentage(section) }}% completed)</small>
+        </h5>
+        <div class="btn-group" role="group" [attr.aria-label]="section.name + ' questions'">
+          <button *ngFor="let question of section.questions; let questionIndex = index" class="btn" [ngClass]="{
+              'btn-primary': sectionIndex === currentSectionIndex && questionIndex === currentQuestionIndex,
+              'btn-success': question.status === 'answered' && !question.isMarkedForReview && (sectionIndex !== currentSectionIndex || questionIndex !== currentQuestionIndex),
+              'btn-danger': question.isMarkedForReview && (sectionIndex !== currentSectionIndex || questionIndex !== currentQuestionIndex),
+              'btn-warning': question.status === 'answered' && question.isMarkedForReview && (sectionIndex !== currentSectionIndex || questionIndex !== currentQuestionIndex),
+              'btn-light': question.status === 'not-attempted' && !question.isMarkedForReview && (sectionIndex !== currentSectionIndex || questionIndex !== currentQuestionIndex)
+            }" (click)="goToQuestion(sectionIndex, questionIndex)"
+            [disabled]="sectionIndex !== currentSectionIndex && !isSectionSufficientlyCompleted(test.sections[currentSectionIndex])"
+            [attr.aria-label]="'Go to question ' + (questionIndex + 1)"
+            [attr.title]="'Go to question ' + (questionIndex + 1)">
+            {{ questionIndex + 1 }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-success" (click)="submitTest()" [disabled]="!canSubmit()" aria-label="Submit test"
+      title="Submit test">
+      Submit Test
+    </button>
+
+  </div>
+  <div class="mt-3">
+    Time remaining: {{ timeRemaining }}
+  </div>
+
+</div>

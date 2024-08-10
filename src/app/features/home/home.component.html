@@ -1,0 +1,76 @@
+<div class="background">
+  <div class="container">
+    <div class="content d-flex justify-content-center align-items-center text-light">
+      <div class="mx-auto introduction text-center">
+        <div class="d-flex mx-auto justify-content-center align-items-center">
+          <img src="/images/js-logo.svg" alt="JavaScript Logo" class="js-logo" />
+          <h1 class="display-1 fancy-text text-shadow">
+            JS Mastery<i class="ml-2 fa-brands fa-slack"></i>
+          </h1>
+        </div>
+        <ng-container *ngIf="(authService.appState$ | async)?.loggedIn; else loggedOut">
+          <p class="mx-auto mt-2 h6 text-shadow">
+            Welcome back, {{ (authService.appState$ | async)?.user?.name }}!
+          </p>
+          <div class="test-info mt-4">
+            <h2 class="h4">Your Test Information</h2>
+            <p>Total Tests Taken: {{ testsTaken }}</p>
+            <p>Average Score: {{ averageScore }}%</p>
+            <p>Last Test Date: {{ lastTestDate | date:'mediumDate' }}</p>
+          </div>
+          <button class="info-text dark-btn mt-2" data-bs-toggle="modal" data-bs-target="#infoModal">
+            Take a new test
+          </button>
+          <!-- Info Modal -->
+          <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="infoModalLabel">Test Information</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <section class="test-section">
+                    <h6>📋 Test Overview</h6>
+                    <p><strong>Total Questions:</strong> 10</p>
+                    <p><strong>Sections:</strong> 2</p>
+                  </section>
+                  <hr />
+                  <section class="test-section">
+                    <h6>⏳ Test Rules</h6>
+                    <p><strong>Section Navigation:</strong></p>
+                    <ul>
+                      <li>Complete at least <strong>80%</strong> of Section 1 to proceed to Section 2.</li>
+                      <li>Questions can be <strong>multiple-correct</strong> or <strong>single-correct</strong>.</li>
+                    </ul>
+                    <p><strong>Time Limit:</strong> 30 minutes</p>
+                  </section>
+                  <hr />
+                  <section class="test-section">
+                    <h6>💡 Need Help?</h6>
+                    <p><strong>📞 Phone:</strong> +91 7249680244</p>
+                    <p><strong>✉️ Email:</strong> <a href="mailto:help@jsmastery.com">helpjs&#64;mastery.com</a></p>
+                  </section>
+                </div>
+                <button class="info-text dark-btn mt-2" data-bs-toggle="modal" data-bs-target="#infoModal"
+                  routerLink="/test">
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-template #loggedOut>
+          <p class="mx-auto mt-2 h6 text-shadow">
+            Master JavaScript With an MCQ Practice Based Approach
+          </p>
+          <a routerLink="/about" class="learn-more">Learn More</a><br />
+          <button class="dark-btn mt-4" type="button" routerLink="/register">
+            Create an account
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

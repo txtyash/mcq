@@ -1,0 +1,91 @@
+.background {
+  background-color: #86aaf7; /* Material Light Blue 500 */
+  min-height: 100vh;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.nav-corner {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: white;
+  color: #03a9f4;
+}
+
+.content {
+  height: 100vh;
+}
+
+h1 {
+  font-family: "anydore", sans-serif, "arial";
+  color: #ffffff;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.js-logo {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+}
+
+.fancy-text {
+  font-size: 4rem;
+  margin-bottom: 0;
+}
+
+.learn-more {
+  color: #ffffff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.dark-btn {
+  background-color: #01579b; /* Material Light Blue 900 for darker button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dark-btn:hover {
+  background-color: #0277bd; /* Material Light Blue 800 for hover state */
+}
+
+.test-info {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.test-info h2 {
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.test-info p {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
